@@ -1,0 +1,62 @@
+import ApiResponse from "../utils/ApiResponse.js";
+import ApiErrors from "../utils/ApiErrors.js";
+import asynchandler from "../utils/asynchandler.js"
+import {User} from "../models/user.model.js"
+import { Task } from "../models/todo.model.js";
+
+export const TaskCreate = asynchandler(async(req,res)=>{
+
+  const {taskgiven} = req.body
+  const userId = req.user._id
+  const user = await User.findById(userId)
+  if(!user){
+    throw new ApiErrors(403,"no user exist")
+  }
+const task = Task.create({
+task :taskgiven,
+createdby:userId,
+completed,
+// createdAt,
+})
+  if(!task){
+    throw new ApiErrors(403,"There is an error to get a task")
+  }
+return res.status(200).json(new ApiResponse(200,task,"task created successfully"))
+
+})
+
+export const updatetask = asynchandler(async(req,res)=>{
+  const userId = req.user._id
+  const id = req.params.id;
+  const {updatedTask,iscompleted} = req.body
+  // const task = await Todo.findById(id)
+  const user = await User.findById(userId)
+  if(!user){
+    throw new ApiErrors(401,"There is an error to get user in updatetask")
+
+  }
+    const task = await Task.findById(id)
+  // const task = await Todo.findByIdAndUpdate()
+task.task = updatedTask??task.task
+task.completed = iscompleted??task.completed 
+const updatedtask = await task.save()
+return res.status(200).json(new ApiResponse(200,updatedtask,"task is updated successfully"))
+}) 
+
+export const deleteTask = asynchandler(async(req,res)=>{
+  const taskId = req.params.id
+  const userId = req.user._id
+  const user = await User.findById(userId)
+    if(!user){
+    throw new ApiErrors(401,"There is an error to get user in updatetask")
+  }
+  const task = await Task.findById(taskId)
+  if(!task){
+    throw new ApiErrors(403,"no task exsist")
+  }
+  const deletetask = await Task.findByIdAndDelete(taskId)
+  task.deleted = true
+  task.deletedat = new Date() 
+  await task.save()
+  return res.status(200).json(new ApiResponse(200,deletetask,"task is deleted"))
+})
