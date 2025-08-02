@@ -6,7 +6,7 @@ const TodoSchema = new mongoose.Schema({
     required:true
   },
   createdby:{
-type:Schema.Types.ObjectId,
+type:mongoose.Schema.Types.ObjectId,
 ref:"User"
   },
   completed:{
@@ -23,4 +23,4 @@ default:false
   }
 },{timestamps:true})
 
-export const Task = new mongoose.model("Task",TodoSchema)
+export const Task = mongoose.model("Task",TodoSchema)
