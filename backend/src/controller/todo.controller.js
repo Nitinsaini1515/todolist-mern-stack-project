@@ -6,22 +6,22 @@ import { Task } from "../models/todo.model.js";
 
 export const TaskCreate = asynchandler(async(req,res)=>{
 
-  const {taskgiven} = req.body
+  const {task} = req.body
   const userId = req.user._id
   const user = await User.findById(userId)
   if(!user){
     throw new ApiErrors(403,"no user exist")
   }
-const task = Task.create({
-task :taskgiven,
+const maintask = Task.create({
+task,
 createdby:userId,
-completed,
+completed:false,
 // createdAt,
 })
   if(!task){
     throw new ApiErrors(403,"There is an error to get a task")
   }
-return res.status(200).json(new ApiResponse(200,task,"task created successfully"))
+return res.status(200).json(new ApiResponse(200,maintask,"task created successfully"))
 
 })
 

@@ -1,4 +1,5 @@
-const { default: mongoose, model } = require("mongoose");
+// const { default: mongoose, model } = require("mongoose");
+import mongoose from "mongoose"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 const UsersSchema = new mongoose.Schema({
@@ -37,7 +38,7 @@ UsersSchema.pre("save",async function(next){
   next()
 })
 UsersSchema.methods.isPasswordCorrect = async function (password) {
-  return await bcrypt.compare(this.password,password)
+  return await bcrypt.compare(password,this.password)
   
 }
 UsersSchema.methods.generateAccessToken = function () {
