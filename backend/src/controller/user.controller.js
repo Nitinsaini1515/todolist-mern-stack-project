@@ -2,6 +2,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 import ApiErrors from "../utils/ApiErrors.js";
 import asynchandler from "../utils/asynchandler.js";
 import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 // register
 // login
 // logout
@@ -113,7 +114,7 @@ export const logout = asynchandler(async (req, res) => {
     await req.user._id,
     {
       $unset: {
-        refreshToken: 1,
+        refreshtoken: 1,
       },
     },
     {
@@ -123,11 +124,12 @@ export const logout = asynchandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    maxAge :0
   };
   res
     .status(200)
-    .cookie("refreshToken", refreshToken, options)
-    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken","", options)
+    .cookie("accessToken", "", options)
     .json(new ApiResponse(200, {}, "User logout success"));
 });
 
@@ -156,39 +158,41 @@ export const passwordchange = asynchandler(async(req,res)=>{
 });
 
 export const refreshaccesstoken = asynchandler(async(req,res)=>{
-   const incommingrefreshtoken =
-    req.cookies.refreshtoken || req.body.refreshtoken;
-  if (!incommingrefreshtoken) {
+   const incomingRefreshToken =
+  req.cookies.refreshToken || req.body.refreshToken;
+console.log('Incoming refresh token',incomingRefreshToken)
+  if (!incomingRefreshToken) {
     throw new ApiErrors(401, "Unauthorized request");
   }
   try {
     const decodedtoken = jwt.verify(
-      incommingrefreshtoken,
+      incomingRefreshToken,
       process.env.REFRESH_TOKEN_SECRET
     );
     // if(!decodedtoken){
     //   throw new erro
     // }
     const user = await User.findById(decodedtoken?._id);
-    if (!usertoken) {
+    if (!user) {
       throw new ApiErrors(401, "Cannot get the usertoken");
     }
-    if (incommingrefreshtoken !== user?.refreshtoken) {
+    if (incomingRefreshToken !== user?.refreshtoken) {
       throw new ApiErrors(401, "Refresh token is expired to use");
     }
 
     const options = {
       httpOnly: true,
-      Secure: true,
+      secure: true,
     };
-    const { accesstoken, newrefreshtoken } =
-      await generateAccessaAndRefreshToken(user._id);
+    const { accesstoken, refreshtoken: newrefreshtoken } = 
+  await generateaccessandrefreshtoken(user._id);
+
     return res
       .status(200)
-      .cookie("accesstoken", accesstoken, options)
-      .cookie("refreshtoken", newrefreshtoken, options)
+      .cookie("accessToken", accesstoken, options)
+      .cookie("refreshToken", newrefreshtoken, options)
       .json(
-        new ApiRsponse(
+        new ApiResponse(
           200,
           { accesstoken, refreshtoken: newrefreshtoken },
           "Access token refresheed successfully"
