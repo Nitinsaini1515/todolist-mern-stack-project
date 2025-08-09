@@ -25,6 +25,22 @@ return res.status(200).json(new ApiResponse(200,maintask,"task created successfu
 
 })
 
+
+export const gettask = asynchandler(async(req,res)=>{
+  const userId = req.user._id
+  const user = await User.findById(userId)
+  if(!user){
+    throw new ApiErrors(403,"No user exist")
+
+  }
+  const tasks = await Task.find({createdby:userId})
+  if(tasks.length ==0){
+    return res.status(200).json(new ApiResponse(200,[],"Create some task no exsist"))
+  }
+  return res.status(200).json(new ApiResponse(200,tasks,"Task fetched successfully"))
+})
+
+
 export const updatetask = asynchandler(async(req,res)=>{
   const userId = req.user._id
   const id = req.params.id;

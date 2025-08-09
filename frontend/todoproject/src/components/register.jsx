@@ -31,24 +31,68 @@ const registerUser = async(e)=>{
     setMessage("There is an error in register")
   }
 }
-
-return(
-  <div>
-  <div>
-    <h2>Sign up</h2>
-  <form onSubmit={registerUser} method="post">
-  <label htmlFor="fullname">Fullname</label>
-  <input type="text" required id="fullname" value={fullname} onChange={(e)=>setFullname(e.target.value)}/>
-  <label htmlFor="username">username</label>
-  <input type="text" required id="username" value={username} onChange={(e)=>setUsername(e.target.value)}/>
-  <label htmlFor="email">email</label>
-  <input type="text" required id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-  <label htmlFor="password">password</label>
-  <input type="password" required id="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-  <button type="submit">Register</button>
-  </form>
-
-  </div>
+return (
+  <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80')" }}>
+    <div className="bg-white bg-opacity-90 rounded-lg shadow-lg p-8 w-full max-w-md">
+      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Sign up</h2>
+      <form onSubmit={registerUser} method="post" className="space-y-4">
+        <div>
+          <label htmlFor="fullname" className="block text-gray-700 font-semibold mb-1">Fullname</label>
+          <input
+            type="text"
+            required
+            id="fullname"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your full name"
+          />
+        </div>
+        <div>
+          <label htmlFor="username" className="block text-gray-700 font-semibold mb-1">Username</label>
+          <input
+            type="text"
+            required
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Choose a username"
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">Email</label>
+          <input
+            type="email"
+            required
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter your email"
+          />
+        </div>
+        <div>
+          <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">Password</label>
+          <input
+            type="password"
+            required
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Create a password"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition duration-200"
+        >
+          Register
+        </button>
+      </form>
+      {message && <p className="mt-4 text-center text-red-600">{message}</p>}
+    </div>
   </div>
 )
 }
