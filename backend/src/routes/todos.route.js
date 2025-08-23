@@ -5,8 +5,8 @@ const router = Router()
 
 
 router.route("/createtask").post(verifyJWT,TaskCreate)
-router.route("/updatetask/:id").post(verifyJWT,updatetask)
+router.route("/updatetask/:id").put(verifyJWT,updatetask)
 router.route("/gettask").get(verifyJWT,gettask)
-router.route("/deletetask/:id").post(verifyJWT,deleteTask)
+router.route("/deletetask/:id").delete(verifyJWT,deleteTask)
 
 export default router

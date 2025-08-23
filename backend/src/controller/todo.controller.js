@@ -44,7 +44,7 @@ export const gettask = asynchandler(async(req,res)=>{
 export const updatetask = asynchandler(async(req,res)=>{
   const userId = req.user._id
   const id = req.params.id;
-  const {updatedTask,iscompleted} = req.body
+  const {updatedTask,completed} = req.body
   // const task = await Todo.findById(id)
   const user = await User.findById(userId)
   if(!user){
@@ -52,9 +52,12 @@ export const updatetask = asynchandler(async(req,res)=>{
 
   }
     const task = await Task.findById(id)
+    if(!task){
+      throw ApiErrors(402,"Task is not found")
+    }
   // const task = await Todo.findByIdAndUpdate()
 task.task = updatedTask??task.task
-task.completed = iscompleted??task.completed 
+task.completed = completed??task.completed 
 const updatedtask = await task.save()
 return res.status(200).json(new ApiResponse(200,updatedtask,"task is updated successfully"))
 }) 
@@ -70,9 +73,9 @@ export const deleteTask = asynchandler(async(req,res)=>{
   if(!task){
     throw new ApiErrors(403,"no task exsist")
   }
-  const deletetask = await Task.findByIdAndDelete(taskId)
-  task.deleted = true
-  task.deletedat = new Date() 
-  await task.save()
-  return res.status(200).json(new ApiResponse(200,deletetask,"task is deleted"))
+  await Task.findByIdAndDelete(taskId)
+  // task.deleted = true
+  // task.deletedat = new Date() 
+  // await task.save()
+  return res.status(200).json(new ApiResponse(200,{},"task is deleted"))
 })
