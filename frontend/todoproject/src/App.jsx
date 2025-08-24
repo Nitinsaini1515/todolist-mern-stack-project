@@ -57,10 +57,19 @@ const router = createBrowserRouter([
             </>
         )
         
+    },{
+      path:"/logout",
+      element:(
+ <>
+            <Navbar/>
+            <Logout/>
+            </>
+
+      )
     }
 ])
 function App() {
-  
+  const token = localStorage.getItem("accessToken")
   return (
 <>
 <RouterProvider router={router}/>

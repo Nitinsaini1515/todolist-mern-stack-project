@@ -11,7 +11,7 @@ const Home = () => {
         alt="Aesthetic background"
         className="absolute inset-0 w-full h-full object-cover opacity-30 z-0"
       />
-      <div className="relative z-10 w-full max-w-md p-8  ">
+      <div className="relative z-10 w-full max-w-md p-8 ">
         {/* <Navbar/> */}
         <CreateTask />
       </div>

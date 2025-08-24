@@ -19,12 +19,17 @@ try {
     headers:{
       "Content-Type":"application/json"
     }
-  })
-  navigate("/home")
+  }
+)
+// console.log(response.data.data)
+setMessage("User Logged in successfully")
+// setMessage(response?.data?.message)
+navigate("/home")
+
+// localStorage.setItem('accessToken', data.accessToken);
 } catch (error) {
- if(error.response){
-  setMessage(error.response.data.message)
-}}
+  setMessage(error.response?.data?.message|| "Please check you username,email,password")
+}
 
     
   }

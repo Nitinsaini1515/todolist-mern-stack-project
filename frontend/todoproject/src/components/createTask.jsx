@@ -26,7 +26,7 @@ const CreateTask = () => {
       setTaskInput("")
       gettask()
     } catch (error) {
-      setError("Task is not created")
+      setError("Task is not created some error......")
     } finally {
       setLoading(false)
     }

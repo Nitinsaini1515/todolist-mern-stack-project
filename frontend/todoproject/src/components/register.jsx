@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 
 const Register =()=>{
 
@@ -25,10 +25,11 @@ const registerUser = async(e)=>{
 "Content-Type":"application/json"}
       }
     );
+     localStorage.setItem('accessToken', data.accessToken);
     setMessage("User is registerd successfully")
     navigate("/login")
   } catch (error) {
-    setMessage("There is an error in register")
+    setMessage(error?.response?.data?.message)
   }
 }
 return (

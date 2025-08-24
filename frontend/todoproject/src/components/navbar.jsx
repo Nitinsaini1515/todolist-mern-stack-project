@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Home from './home'
 import AboutUs from './aboutUs'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import Logout from './logout'
 // import 'tailwindcss/tailwind.css'
 
 const Navbar = () => {
+
+
+
   return (
     <nav className="bg-gradient-to-r from-purple-600 via-pink-500 to-red-400 shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
@@ -43,6 +48,9 @@ const Navbar = () => {
           >
             About us
           </NavLink>
+
+
+
           <NavLink
             to="/login"
             className={({ isActive }) =>
@@ -67,6 +75,26 @@ const Navbar = () => {
           >
             Register
           </NavLink>
+               <NavLink
+            to="/logout"
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
+                isActive
+                  ? "bg-white text-purple-600 shadow-md"
+                  : "text-white hover:bg-white hover:text-purple-600"
+              }`
+            }
+          >
+            Logout
+          </NavLink>
+        {/* <NavLink
+        to="/logout"
+        className={({isActive})=>{
+          `px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive? "bg-white text-purple-600 shadow-md"
+          : "text-white hover:bg-white hover:text-purple-600"}`
+        }}
+        >Logout
+        </NavLink> */}
         </div>
       </div>
     </nav>
@@ -74,3 +102,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+// agar login true hai to register and login ki jagah logout aaye
