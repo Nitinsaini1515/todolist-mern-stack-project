@@ -1,6 +1,6 @@
 import axios from "axios"
 import React, { useState, useEffect } from "react"
-
+import API from "../api/api"
 const CreateTask = () => {
   const [taskInput, setTaskInput] = useState("")
   const [tasks, setTask] = useState([])
@@ -15,7 +15,7 @@ const CreateTask = () => {
     }
     setLoading(true)
     try {
-      await axios.post(
+      await API.post(
         "/api/v2/todoroute/createtask",
         { task: taskInput },
         {
@@ -35,7 +35,7 @@ const CreateTask = () => {
 
   const gettask = async () => {
     try {
-      const response = await axios.get("/api/v2/todoroute/gettask")
+      const response = await API.get("/api/v2/todoroute/gettask")
       setTask(response.data.data)
     } catch (error) {
       setMessage(error.response?.data?.message)
@@ -44,7 +44,7 @@ const CreateTask = () => {
 
   const deleteTodo = async (id) => {
     try {
-      await axios.delete(`/api/v2/todoroute/deletetask/${id}`, {
+      await API.delete(`/api/v2/todoroute/deletetask/${id}`, {
         withCredentials: true,
       })
       setMessage("Task deleted successfully")
@@ -56,7 +56,7 @@ const CreateTask = () => {
 
   const updateTodo = async (id, completed) => {
     try {
-      await axios.put(
+      await API.put(
         `/api/v2/todoroute/updatetask/${id}`,
         { completed },
         { withCredentials: true }

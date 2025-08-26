@@ -12,7 +12,7 @@ const Login = () => {
   const loginUser = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post("/api/v1/user/login",
+      const response = await API.post("/api/v1/user/login",
         { username, email, password },
         {
           withCredentials: true,

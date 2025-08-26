@@ -8,7 +8,7 @@ const Logout = () => {
 
   const logout = async () => {
     try {
-      await axios.post("/api/v1/user/logout", {}, { withCredentials: true })
+      await API.post("/api/v1/user/logout", {}, { withCredentials: true })
       setMessage("User logged out successfully")
       navigate('/login')
     } catch (error) {
