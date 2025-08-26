@@ -1,51 +1,48 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-// import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+
 const Login = () => {
-  const[username,setUsername] = useState("")
-  const[email,setEmail] = useState("")
-  const[password,setPassword] = useState("")
-  const [message,setMessage] = useState("")
-const navigate = useNavigate()
-  const loginUser = async(e)=>{
-e.preventDefault()
-try {
-  
-  const response = await axios.post("/api/v1/user/login",{
-   username,email,password 
-  },{
-    withCredentials:true,
-    headers:{
-      "Content-Type":"application/json"
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [message, setMessage] = useState("")
+  const navigate = useNavigate()
+
+  const loginUser = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios.post("/api/v1/user/login",
+        { username, email, password },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      setMessage("User Logged in successfully")
+      navigate("/home")
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Please check your username, email, or password")
     }
   }
-)
-// console.log(response.data.data)
-setMessage("User Logged in successfully")
-// setMessage(response?.data?.message)
-navigate("/home")
 
-// localStorage.setItem('accessToken', data.accessToken);
-} catch (error) {
-  setMessage(error.response?.data?.message|| "Please check you username,email,password")
-}
-
-    
-  }
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center px-4"
       style={{ backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80')" }}
     >
-      <div className="bg-white bg-opacity-80 rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Login</h1>
+      <div className="bg-white bg-opacity-80 rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-sm sm:max-w-md lg:max-w-lg">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">Login</h1>
+
         {message && (
-          <div className="mb-4 text-red-600 text-center font-medium">{message}</div>
+          <div className="mb-4 text-red-600 text-center font-medium text-sm sm:text-base">{message}</div>
         )}
-        <form method="post" onSubmit={loginUser} className="space-y-5">
+
+        <form method="post" onSubmit={loginUser} className="space-y-4 sm:space-y-5">
           <div>
-            <label htmlFor="username" className="block text-gray-700 font-semibold mb-1">
+            <label htmlFor="username" className="block text-gray-700 font-semibold mb-1 text-sm sm:text-base">
               Username
             </label>
             <input
@@ -53,13 +50,14 @@ navigate("/home")
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"
               autoComplete="username"
               required
             />
           </div>
+
           <div>
-            <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
+            <label htmlFor="email" className="block text-gray-700 font-semibold mb-1 text-sm sm:text-base">
               Email
             </label>
             <input
@@ -67,13 +65,14 @@ navigate("/home")
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"
               autoComplete="email"
               required
             />
           </div>
+
           <div>
-            <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
+            <label htmlFor="password" className="block text-gray-700 font-semibold mb-1 text-sm sm:text-base">
               Password
             </label>
             <input
@@ -81,14 +80,15 @@ navigate("/home")
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"
               autoComplete="current-password"
               required
             />
           </div>
+
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded transition duration-200"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded transition duration-200 text-sm sm:text-base"
           >
             Login
           </button>

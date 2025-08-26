@@ -9,9 +9,9 @@ const Home = () => {
       <img
         src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
         alt="Aesthetic background"
-        className="absolute inset-0 w-full h-full object-cover opacity-30 z-0"
+        className="absolute inset-0 w-full h-full object-cover opacity-60 z-0"
       />
-      <div className="relative z-10 w-full max-w-md p-8 ">
+      <div className="z-0  ">
         {/* <Navbar/> */}
         <CreateTask />
       </div>
