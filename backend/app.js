@@ -5,7 +5,7 @@ import todoroute from "./src/routes/todos.route.js"
 import registerrouter from "./src/routes/user.routes.js"
 import cookieParser from "cookie-parser"
 app.use(cors({
-  origin:process.env.CORS_ORIGIN,
+  origin:"https://todolist-mern-stack-frontend-brg1.onrender.com",
   credentials:true
 }))
 app.use(express.json({limit:"20kb"}))
