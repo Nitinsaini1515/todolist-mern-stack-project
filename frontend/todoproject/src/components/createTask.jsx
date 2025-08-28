@@ -35,7 +35,9 @@ const CreateTask = () => {
 
   const gettask = async () => {
     try {
-      const response = await API.get("/api/v2/todoroute/gettask")
+      const response = await API.get("/api/v2/todoroute/gettask",{
+        withCredentials: true,
+      })
       setTask(response.data.data)
     } catch (error) {
       setMessage(error.response?.data?.message)
