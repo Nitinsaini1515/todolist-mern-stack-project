@@ -88,12 +88,12 @@ const user = await User.findOne({
     .status(200)
     .cookie("accessToken", accesstoken, {
   httpOnly: true,
-  secure: false, // true in production (HTTPS)
+  secure: true, // true in production (HTTPS)
   sameSite: "Lax", // Or "None" if frontend/backend on different domains
   maxAge: 24 * 60 * 60 * 1000
 })  .cookie("refreshToken", refreshtoken, {
     httpOnly: true,
-    secure: false, // Set to true in production
+    secure: true, // Set to true in production
     sameSite: "Lax", // Or 'None' if frontend/backend are on different domains
     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days or more
   })
